@@ -6,36 +6,26 @@
     <title>{% block title %}Тестовое Задание{% endblock %}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container">
-            <a class="navbar-brand" href="/">ДДС Учёт</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="{% url "webapp:home" %}">Главная</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/create/">Создать запись</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/manage/">Управление справочниками</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+<body class="d-flex flex-column min-vh-100">
 
-    <div class="container mt-4">
-        {% block content %}
-        {% endblock %}
+    <div class="d-flex flex-column bg-light position-fixed top-0 start-0" style="width: 250px; min-height: 100%; padding-top: 46px;">
+        <div class="container">
+            <a class="navbar-brand text-dark fw-bold fs-4 px-3" href="{% url 'webapp:home' %}">ДДС Учёт</a>
+            <a href="{% url 'webapp:home' %}" class="nav-link text-dark px-3">Главная</a>
+            <a href="{% url 'webapp:create_transaction' %}" class="nav-link text-dark px-3">Создать запись</a>
+            <a href="/manage/" class="nav-link text-dark px-3">Управление справочниками</a>
+        </div>
     </div>
 
-    <footer class="bg-light text-center text-lg-start mt-5">
-        <div class="container p-4">
+    <div class="main-content" style="margin-left: 250px; padding-top: 20px; flex-grow: 1;">
+        <div class="container mt-4">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+
+    <footer class="bg-light text-center text-lg-start mt-5" style="margin-left: 250px; padding: 10px 0;">
+        <div class="container p-1">
             <p class="text-muted">© 2025 Тестовый проект для учёта ДДС</p>
         </div>
     </footer>
@@ -43,3 +33,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
+
+
+
+
+

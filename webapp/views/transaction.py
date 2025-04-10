@@ -1,7 +1,10 @@
-from django.views.generic import ListView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
 from webapp.models.categories import Category, SubCategory
 from webapp.models.transaction import Transaction
 from webapp.models.type_status import Status, TransactionType
+from webapp.forms.transaction_forms import TransactionForm
+
 
 
 class TransactionList(ListView):
@@ -46,3 +49,10 @@ class TransactionList(ListView):
     context['statuses'] = Status.objects.all()
     context['transaction_types'] = TransactionType.objects.all()
     return context
+  
+
+class TransactionCreate(CreateView):
+  template_name = 'transactions/transaction_create.html'
+  model = Transaction
+  success_url = reverse_lazy('webapp:home')
+  form_class = TransactionForm

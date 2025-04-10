@@ -1,5 +1,5 @@
 from django.db import models
-from django.forms import ValidationError
+from django.core.exceptions import ValidationError
 from webapp.models.type_status import TransactionType, Status
 from webapp.models.categories import Category, SubCategory
 
