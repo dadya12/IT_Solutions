@@ -14,12 +14,12 @@ class Transaction(models.Model):
   comment = models.TextField(max_length=500, verbose_name='Комментарий', null=True, blank=True)
 
   def __str__(self):
-        return f"{self.created_at} — {self.transaction_type.name} — {self.amount}₽"
+        return f"{self.created_at} — {self.transaction_type.name} — {self.price}₽"
   
 
   def clean(self):
         if self.subcategory.category != self.category:
             raise ValidationError("Подкатегория не принадлежит выбранной категории.")
-
+        
         if self.category.transaction_type != self.transaction_type:
             raise ValidationError("Категория не принадлежит выбранному типу.")

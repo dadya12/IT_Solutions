@@ -1,5 +1,91 @@
 {% extends "base.html" %}
 
-{% block content %}
+{% block title %}Учёт ДДС{% endblock %}
 
-{% endblock  %}
+{% block content %}
+<h2 class="mb-4">Учёт движения денежных средств</h2>
+
+<form method="get" class="row g-3 mb-4">
+    <div class="col-md-2">
+        <label for="date_from" class="form-label">С даты</label>
+        <input type="date" id="date_from" name="date_from" class="form-control" value="{{ request.GET.date_from }}">
+    </div>
+    <div class="col-md-2">
+        <label for="date_to" class="form-label">По дату</label>
+        <input type="date" id="date_to" name="date_to" class="form-control" value="{{ request.GET.date_to }}">
+    </div>
+    <div class="col-md-2">
+        <label for="status" class="form-label">Статус</label>
+        <select id="status" name="status" class="form-select">
+            <option value="">Все</option>
+            {% for s in statuses %}
+                <option value="{{ s.id }}" {% if request.GET.status == s.id %}selected{% endif %}>{{ s.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="col-md-2">
+        <label for="transaction_type" class="form-label">Тип</label>
+        <select id="transaction_type" name="transaction_type" class="form-select">
+            <option value="">Все</option>
+            {% for t in transaction_types %}
+                <option value="{{ t.id }}" {% if request.GET.transaction_type == t.id %}selected{% endif %}>{{ t.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="col-md-2">
+        <label for="category" class="form-label">Категория</label>
+        <select id="category" name="category" class="form-select">
+            <option value="">Все</option>
+            {% for c in categories %}
+                <option value="{{ c.id }}" {% if request.GET.category == c.id %}selected{% endif %}>{{ c.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="col-md-2">
+        <label for="subcategory" class="form-label">Подкатегория</label>
+        <select id="subcategory" name="subcategory" class="form-select">
+            <option value="">Все</option>
+            {% for sc in subcategories %}
+                <option value="{{ sc.id }}" {% if request.GET.subcategory == sc.id %}selected{% endif %}>{{ sc.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="col-12 d-flex justify-content-end">
+        <button type="submit" class="btn btn-primary mt-2">Применить фильтры</button>
+    </div>
+</form>
+
+<table class="table table-bordered table-hover">
+    <thead class="table-light">
+        <tr>
+            <th>Дата</th>
+            <th>Статус</th>
+            <th>Тип</th>
+            <th>Категория</th>
+            <th>Подкатегория</th>
+            <th>Сумма</th>
+            <th>Комментарий</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for t in transactions %}
+        <tr>
+            <td>{{ t.created_at|date:"d.m.Y" }}</td>
+            <td>{{ t.status.name }}</td>
+            <td>{{ t.transaction_type.name }}</td>
+            <td>{{ t.category.name }}</td>
+            <td>{{ t.subcategory.name }}</td>
+            <td>{{ t.price }} ₽</td>
+            <td>{{ t.comment }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="7" class="text-center">Записей не найдено</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
+
+
