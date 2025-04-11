@@ -59,6 +59,18 @@ class TransactionCreate(CreateView):
   success_url = reverse_lazy('webapp:home')
   form_class = TransactionForm
 
+  def get_form_kwargs(self):
+     kwargs = super().get_form_kwargs()
+     category_id = self.request.GET.get('category')
+     if category_id:
+        kwargs['initial']['category'] = category_id
+     return kwargs
+  
+  def get_context_data(self, **kwargs):
+     context = super().get_context_data(**kwargs)
+     context['selected_category'] = self.request.GET.get('category')
+     return context
+
 
 class TransactionUpdate(UpdateView):
   template_name = 'transactions/transaction_update.html'
