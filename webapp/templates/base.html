@@ -5,15 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Тестовое Задание{% endblock %}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 <body class="d-flex flex-column min-vh-100">
 
     <div class="d-flex flex-column bg-light position-fixed top-0 start-0" style="width: 250px; min-height: 100%; padding-top: 46px;">
         <div class="container">
             <a class="navbar-brand text-dark fw-bold fs-4 px-3" href="{% url 'webapp:home' %}">ДДС Учёт</a>
-            <a href="{% url 'webapp:home' %}" class="nav-link text-dark px-3">Главная</a>
-            <a href="{% url 'webapp:create_transaction' %}" class="nav-link text-dark px-3">Создать запись</a>
-            <a href="/manage/" class="nav-link text-dark px-3">Управление справочниками</a>
+            <a href="{% url 'webapp:home' %}" class="nav-link text-dark px-3" style="margin-top: 10px; margin-bottom: 10px;">Главная</a>
+            <a href="{% url 'webapp:create_transaction' %}" class="nav-link text-dark px-3" style="margin-bottom: 10px;">Создать запись</a>
+            <a href="#" class="nav-link text-dark px-3">Управление справочниками</a>
         </div>
     </div>
 

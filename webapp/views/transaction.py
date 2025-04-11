@@ -1,5 +1,6 @@
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from webapp.models.categories import Category, SubCategory
 from webapp.models.transaction import Transaction
 from webapp.models.type_status import Status, TransactionType
@@ -56,3 +57,20 @@ class TransactionCreate(CreateView):
   model = Transaction
   success_url = reverse_lazy('webapp:home')
   form_class = TransactionForm
+
+
+class TransactionUpdate(UpdateView):
+  template_name = 'transactions/transaction_update.html'
+  model = Transaction
+  form_class = TransactionForm
+  success_url = reverse_lazy('webapp:home')
+
+
+class TransactionDelete(DeleteView):
+    model = Transaction
+    success_url = reverse_lazy('webapp:home')
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        self.object.delete()
+        return redirect(self.success_url)

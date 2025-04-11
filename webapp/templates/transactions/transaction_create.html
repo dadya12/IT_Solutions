@@ -3,18 +3,28 @@
 {% block title %}Создать запись о ДДС{% endblock %}
 
 {% block content %}
-    <div class="container mt-5">
-        <h2 class="text-center mb-4">Создание новой записи о движении денежных средств</h2>
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Создание новой записи о движении денежных средств</h2>
 
-        <form method="post" class="card p-5 shadow-lg rounded-lg border-0">
-            {% csrf_token %}
-            <div class="row mb-3">
+    <div class="row">
+        <div class="col-md-9">
+            <form method="post" class="card p-5 shadow-lg rounded-lg border-0">
+                {% csrf_token %}
 
-              <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="transaction_type" class="form-label font-weight-bold">Тип транзакции</label>
-                        <div class="form-control">
-                            {{ form.transaction_type }}
+                {% if form.non_field_errors %}
+                    <div class="alert alert-danger">
+                        {% for error in form.non_field_errors %}
+                            <p class="mb-0">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="transaction_type" class="form-label fw-bold">Тип транзакции</label>
+                        <div class="d-flex align-items-center">
+                            <div class="form-control me-2">{{ form.transaction_type }}</div>
+                            <a href="{% url 'webapp:transaction_type_create' %}" class="btn btn-outline-success btn-sm" title="Добавить новый тип">+</a>
                         </div>
                         {% if form.transaction_type.errors %}
                             <div class="text-danger">
@@ -24,13 +34,12 @@
                             </div>
                         {% endif %}
                     </div>
-                </div>
 
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="status" class="form-label font-weight-bold">Статус</label>
-                        <div class="form-control">
-                            {{ form.status }}
+                    <div class="col-md-6">
+                        <label for="status" class="form-label fw-bold">Статус</label>
+                        <div class="d-flex align-items-center">
+                            <div class="form-control me-2">{{ form.status }}</div>
+                            <a href="{% url 'webapp:status_create' %}" class="btn btn-outline-success btn-sm" title="Добавить новый статус">+</a>
                         </div>
                         {% if form.status.errors %}
                             <div class="text-danger">
@@ -42,14 +51,12 @@
                     </div>
                 </div>
 
-            </div>
-
-            <div class="row mb-3">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="category" class="form-label font-weight-bold">Категория</label>
-                        <div class="form-control">
-                            {{ form.category }}
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="category" class="form-label fw-bold">Категория</label>
+                        <div class="d-flex align-items-center">
+                            <div class="form-control me-2">{{ form.category }}</div>
+                            <a href="{% url 'webapp:category_create' %}" class="btn btn-outline-success btn-sm" title="Добавить категорию">+</a>
                         </div>
                         {% if form.category.errors %}
                             <div class="text-danger">
@@ -59,13 +66,12 @@
                             </div>
                         {% endif %}
                     </div>
-                </div>
 
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="subcategory" class="form-label font-weight-bold">Подкатегория</label>
-                        <div class="form-control">
-                            {{ form.subcategory }}
+                    <div class="col-md-6">
+                        <label for="subcategory" class="form-label fw-bold">Подкатегория</label>
+                        <div class="d-flex align-items-center">
+                            <div class="form-control me-2">{{ form.subcategory }}</div>
+                            <a href="{% url 'webapp:subcategory_create' %}" class="btn btn-outline-success btn-sm" title="Добавить подкатегорию">+</a>
                         </div>
                         {% if form.subcategory.errors %}
                             <div class="text-danger">
@@ -76,12 +82,11 @@
                         {% endif %}
                     </div>
                 </div>
-            </div>
 
-            <div class="mb-3">
-                <div class="form-group">
-                    <label for="price" class="form-label font-weight-bold">Сумма</label>
-                    <input type="number" step="0.01" class="form-control" id="price" name="price" placeholder="Введите сумму" value="{{ form.price.value|default:'' }}">
+                <div class="mb-3">
+                    <label for="price" class="form-label fw-bold">Сумма</label>
+                    <input type="number" step="0.01" class="form-control" id="price" name="price"
+                           placeholder="Введите сумму" value="{{ form.price.value|default:'' }}">
                     {% if form.price.errors %}
                         <div class="text-danger">
                             {% for error in form.price.errors %}
@@ -90,11 +95,9 @@
                         </div>
                     {% endif %}
                 </div>
-            </div>
 
-            <div class="mb-3">
-                <div class="form-group">
-                    <label for="comment" class="form-label font-weight-bold">Комментарий (необязательно)</label>
+                <div class="mb-3">
+                    <label for="comment" class="form-label fw-bold">Комментарий (необязательно)</label>
                     <textarea class="form-control" id="comment" name="comment" rows="3">{{ form.comment.value|default:'' }}</textarea>
                     {% if form.comment.errors %}
                         <div class="text-danger">
@@ -104,15 +107,30 @@
                         </div>
                     {% endif %}
                 </div>
-            </div>
 
-            <div class="d-flex justify-content-between">
-                <button type="submit" class="btn btn-primary shadow-sm px-4 py-2">Сохранить</button>
-                <a href="{% url 'webapp:home' %}" class="btn btn-secondary shadow-sm px-4 py-2">Отмена</a>
+                <div class="d-flex justify-content-between">
+                    <button type="submit" class="btn btn-primary shadow-sm px-4 py-2">Сохранить</button>
+                    <a href="{% url 'webapp:home' %}" class="btn btn-secondary shadow-sm px-4 py-2">Отмена</a>
+                </div>
+            </form>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow-sm p-3">
+                <h5 class="text-center fw-bold mb-3">Быстрое добавление</h5>
+                <div class="d-grid gap-2">
+                    <a href="{% url 'webapp:status_create' %}" class="btn btn-outline-primary btn-sm">+ Статус</a>
+                    <a href="{% url 'webapp:transaction_type_create' %}" class="btn btn-outline-primary btn-sm">+ Тип транзакции</a>
+                    <a href="{% url 'webapp:category_create' %}" class="btn btn-outline-primary btn-sm">+ Категория</a>
+                    <a href="{% url 'webapp:subcategory_create' %}" class="btn btn-outline-primary btn-sm">+ Подкатегория</a>
+                </div>
             </div>
-        </form>
+        </div>
+
     </div>
+</div>
 {% endblock %}
+
 
 
 

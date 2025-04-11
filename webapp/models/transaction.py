@@ -1,11 +1,12 @@
 from django.db import models
+from django.utils import timezone
 from django.core.exceptions import ValidationError
 from webapp.models.type_status import TransactionType, Status
 from webapp.models.categories import Category, SubCategory
 
 
 class Transaction(models.Model):
-  created_at = models.DateField(auto_now_add=True, verbose_name='Дата создания записи')
+  created_at = models.DateField(default=timezone.now, verbose_name='Дата создания записи')
   status = models.ForeignKey(Status, on_delete=models.CASCADE, verbose_name='Статус')
   transaction_type = models.ForeignKey(TransactionType, on_delete=models.CASCADE, verbose_name='Тип')
   category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='Категория')
@@ -15,11 +16,3 @@ class Transaction(models.Model):
 
   def __str__(self):
         return f"{self.created_at} — {self.transaction_type.name} — {self.price}₽"
-  
-
-  def clean(self):
-        if self.subcategory.category != self.category:
-            raise ValidationError("Подкатегория не принадлежит выбранной категории.")
-        
-        if self.category.transaction_type != self.transaction_type:
-            raise ValidationError("Категория не принадлежит выбранному типу.")
