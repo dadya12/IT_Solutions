@@ -1,9 +1,9 @@
 from django import forms
-from webapp.models.type_status import Status, TransactionType
 from webapp.models.categories import Category, SubCategory
+from webapp.models.type_status import Status, TransactionType
 
 
-class CategoryForm(forms.ModelForm):
+class CategoryUpdateForm(forms.ModelForm):
     class Meta:
         model = Category
         fields = '__all__'
@@ -13,7 +13,7 @@ class CategoryForm(forms.ModelForm):
         }
 
 
-class SubCategoryForm(forms.ModelForm):
+class SubCategoryUpdateForm(forms.ModelForm):
     class Meta:
         model = SubCategory
         fields = '__all__'
@@ -23,7 +23,7 @@ class SubCategoryForm(forms.ModelForm):
         }
 
 
-class StatusForm(forms.ModelForm):
+class StatusUpdateForm(forms.ModelForm):
     class Meta:
         model = Status
         fields = '__all__'
@@ -32,7 +32,7 @@ class StatusForm(forms.ModelForm):
         }
 
 
-class TransactionTypeForm(forms.ModelForm):
+class TransactionTypeUpdateForm(forms.ModelForm):
     class Meta:
         model = TransactionType
         fields = '__all__'

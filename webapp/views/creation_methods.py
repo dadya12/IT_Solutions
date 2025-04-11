@@ -8,7 +8,7 @@ from webapp.forms.create_forms import CategoryForm, SubCategoryForm, StatusForm,
 class CategoryCreate(CreateView):
   template_name = 'create_templates/category_create.html'
   model = Category
-  success_url = reverse_lazy('webapp:create_transaction')
+  success_url = reverse_lazy('webapp:control')
   form_class = CategoryForm
 
 
@@ -16,7 +16,7 @@ class CategoryCreate(CreateView):
 class SubCategoryCreate(CreateView):
   template_name = 'create_templates/subcategory_create.html'
   model = SubCategory
-  success_url = reverse_lazy('webapp:create_transaction')
+  success_url = reverse_lazy('webapp:control')
   form_class = SubCategoryForm
 
 
@@ -24,7 +24,7 @@ class SubCategoryCreate(CreateView):
 class StatusCreate(CreateView):
   template_name = 'create_templates/status_create.html'
   model = Status
-  success_url = reverse_lazy('webapp:create_transaction')
+  success_url = reverse_lazy('webapp:control')
   form_class = StatusForm
 
 
@@ -32,5 +32,5 @@ class StatusCreate(CreateView):
 class TransactionTypeCreate(CreateView):
   template_name = 'create_templates/transaction_type_create.html'
   model = TransactionType
-  success_url = reverse_lazy('webapp:create_transaction')
+  success_url = reverse_lazy('webapp:control')
   form_class = TransactionTypeForm

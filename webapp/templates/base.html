@@ -14,7 +14,7 @@
             <a class="navbar-brand text-dark fw-bold fs-4 px-3" href="{% url 'webapp:home' %}">ДДС Учёт</a>
             <a href="{% url 'webapp:home' %}" class="nav-link text-dark px-3" style="margin-top: 10px; margin-bottom: 10px;">Главная</a>
             <a href="{% url 'webapp:create_transaction' %}" class="nav-link text-dark px-3" style="margin-bottom: 10px;">Создать запись</a>
-            <a href="#" class="nav-link text-dark px-3">Управление справочниками</a>
+            <a href="{% url "webapp:control" %}" class="nav-link text-dark px-3">Управление справочниками</a>
         </div>
     </div>
 

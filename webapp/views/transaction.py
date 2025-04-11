@@ -1,5 +1,6 @@
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
+from django.views.generic import TemplateView
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from webapp.models.categories import Category, SubCategory
 from webapp.models.transaction import Transaction
@@ -74,3 +75,18 @@ class TransactionDelete(DeleteView):
         self.object = self.get_object()
         self.object.delete()
         return redirect(self.success_url)
+
+
+class ControlListView(TemplateView):
+    template_name = 'control_page.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['control_data'] = [
+            ('Статусы', Status.objects.all(), 'webapp:status_update', 'webapp:status_delete',
+            'webapp:status_create'),
+            ('Типы транзакций', TransactionType.objects.all(), 'webapp:transaction_type_update', 'webapp:transaction_type_delete', 'webapp:transaction_type_create'),
+            ('Категории', Category.objects.all(), 'webapp:category_update', 'webapp:category_delete', 'webapp:category_create'),
+            ('Подкатегории', SubCategory.objects.all(), 'webapp:subcategory_update', 'webapp:subcategory_delete', 'webapp:subcategory_create'),
+        ]
+        return context

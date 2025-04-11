@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Обновить тип транзакции{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Обновить тип транзакции</h2>
+
+    <div class="card shadow rounded-3">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">Редактирование типа транзакции: {{ transaction_type.name }}</h5>
+        </div>
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="id_name" class="form-label">Название</label>
+                    {{ form.name }}
+                </div>
+                <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+                <a href="{% url 'webapp:control' %}" class="btn btn-secondary ms-2">Назад</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
